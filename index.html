@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porsche | Painel de Vendas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg:#0b0c0e;--panel:#141619;--panel2:#191c20;--line:#292d32;--muted:#9299a2;--text:#f5f6f7;--red:#e31b35;--red2:#ff4257}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -20%,#292d33 0,transparent 40%),var(--bg);color:var(--text);font-family:Inter,Roboto,Helvetica,sans-serif;min-height:100vh}
+.wrap{max-width:1440px;margin:auto;padding:34px 28px 44px}.topline{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:28px}
+.brand{display:flex;align-items:center;gap:16px}.crest{width:44px;height:44px;border:1px solid #777d85;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;letter-spacing:-1px;color:#fff}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--red2);font-weight:800;text-transform:uppercase;margin-bottom:6px}.title{font-size:clamp(22px,3vw,34px);letter-spacing:-1.2px;font-weight:700;margin:0}.sub{color:var(--muted);font-size:12px;margin-top:8px}.status{border:1px solid #353a40;padding:9px 12px;border-radius:99px;font-size:11px;color:#c4c8ce;white-space:nowrap}.status i{display:inline-block;width:6px;height:6px;background:var(--red);border-radius:50%;margin-right:7px}
+.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:26px 0 14px}.sectionhead h2{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin:0;font-weight:700}.sectionhead p{margin:0;color:var(--muted);font-size:11px}
+.filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:18px}
+.filter label{display:block;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;margin:0 0 8px 2px}.filter select{width:100%;background:#0d0f11;color:var(--text);border:1px solid #343940;border-radius:9px;padding:12px 34px 12px 12px;font:500 12px Inter, sans-serif;outline:none}.filter select:focus{border-color:var(--red)}
+.reset{align-self:end;background:transparent;border:1px solid #42474f;color:#e1e3e6;border-radius:9px;padding:12px 15px;font:600 12px Inter;cursor:pointer;transition:.2s}.reset:hover{background:var(--red);border-color:var(--red)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.metric{position:relative;overflow:hidden;background:linear-gradient(135deg,#191c20,#111315);border:1px solid var(--line);border-radius:15px;padding:22px 24px;min-height:138px}.metric:after{content:"";position:absolute;width:150px;height:150px;border:1px solid #343940;border-radius:50%;right:-42px;top:-65px;box-shadow:0 0 0 17px #ffffff03,0 0 0 35px #ffffff02}.metric .label{color:#a4aab2;font-size:11px;text-transform:uppercase;letter-spacing:1.3px;font-weight:700}.metric .value{font-size:clamp(26px,4vw,39px);font-weight:700;letter-spacing:-1.5px;margin-top:18px;position:relative;z-index:1}.metric .foot{font-size:11px;color:var(--muted);margin-top:8px}.accent{height:3px;width:35px;background:var(--red);border-radius:4px;margin-bottom:16px}
+.charts{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}.chartcard{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px;min-width:0}.chartcard.wide{grid-column:1/-1}.charttitle{font-size:14px;font-weight:700;margin:0}.chartdesc{color:var(--muted);font-size:11px;margin:7px 0 18px}.chartbox{height:300px;position:relative}.wide .chartbox{height:340px}.bottomnote{color:#777e87;font-size:10px;text-align:center;margin-top:25px;line-height:1.7}.bottomnote span{color:#a8adb4}
+@media(max-width:850px){.wrap{padding:24px 16px}.filters{grid-template-columns:1fr 1fr}.reset{width:100%}.charts{grid-template-columns:1fr}.chartcard.wide{grid-column:auto}.topline{align-items:flex-start}.status{display:none}}
+@media(max-width:520px){.filters,.cards{grid-template-columns:1fr}.metric{min-height:120px}.chartcard{padding:16px}.chartbox{height:270px}.wide .chartbox{height:300px}.sectionhead{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="topline">
+    <div class="brand"><div class="crest">P</div><div><div class="eyebrow">Sales intelligence</div><h1 class="title">Painel de Vendas Porsche</h1><div class="sub">Visão executiva · análise interativa de desempenho</div></div></div>
+    <div class="status"><i></i>PAINEL INTERATIVO</div>
+  </header>
+  <div class="sectionhead"><h2>Refinar análise</h2><p>Os indicadores e gráficos respondem aos filtros em tempo real.</p></div>
+  <section class="filters" aria-label="Filtros de vendas">
+    <div class="filter"><label for="modelo">Modelo</label><select id="modelo"><option value="">Todos os modelos</option></select></div>
+    <div class="filter"><label for="estado">Estado</label><select id="estado"><option value="">Todos os estados</option></select></div>
+    <div class="filter"><label for="pagamento">Método de pagamento</label><select id="pagamento"><option value="">Todos os métodos</option></select></div>
+    <button class="reset" id="limpar" type="button">Limpar filtros ↺</button>
+  </section>
+  <div class="sectionhead"><h2>Resumo executivo</h2><p id="contagem">Base tratada</p></div>
+  <section class="cards">
+    <article class="metric"><div class="accent"></div><div class="label">Receita total</div><div class="value" id="receita">—</div><div class="foot">Soma do valor das vendas filtradas</div></article>
+    <article class="metric"><div class="accent"></div><div class="label">Quantidade de vendas</div><div class="value" id="vendas">—</div><div class="foot">Registros válidos após tratamento</div></article>
+  </section>
+  <div class="sectionhead"><h2>Desempenho comercial</h2><p>Valores recalculados conforme a seleção atual.</p></div>
+  <section class="charts">
+    <article class="chartcard wide"><h3 class="charttitle">Faturamento por modelo</h3><p class="chartdesc">Quais modelos concentram a maior receita?</p><div class="chartbox"><canvas id="grafModelo" aria-label="Faturamento por modelo"></canvas></div></article>
+    <article class="chartcard"><h3 class="charttitle">Distribuição regional</h3><p class="chartdesc">Estados com maior número de vendas.</p><div class="chartbox"><canvas id="grafEstado" aria-label="Vendas por estado"></canvas></div></article>
+    <article class="chartcard"><h3 class="charttitle">Preferência de pagamento</h3><p class="chartdesc">Participação de cada modalidade nas vendas.</p><div class="chartbox"><canvas id="grafPagamento" aria-label="Métodos de pagamento"></canvas></div></article>
+  </section>
+  <footer class="bottomnote">TRATAMENTO DE DADOS · <span id="validas"></span> registros válidos incluídos · linhas com <span>SaleDateSanitized = INVALID</span> excluídas.<br>Fonte dos cálculos: exclusivamente colunas “Sanitized”. Os gráficos usam Chart.js via CDN e exigem conexão com a internet.</footer>
+</main>
+<script>
+const dados = [{"modelo":"911 Turbo S","ano":2024,"preco":235000.0,"estado":"WA","pagamento":"Wire Transfer","data":"2024-03-14"},{"modelo":"Cayenne Coupe","ano":2023,"preco":112750.0,"estado":"TX","pagamento":"Financing","data":"2024-04-18"},{"modelo":"Taycan 4S","ano":2024,"preco":121000.0,"estado":"CA","pagamento":"Bank Transfer","data":"2024-05-22"},{"modelo":"Panamera 4","ano":2023,"preco":104500.0,"estado":"FL","pagamento":"Credit Card","data":"2024-08-06"},{"modelo":"911 Carrera S","ano":2020,"preco":96300.0,"estado":"NY","pagamento":"Lease","data":"2024-07-11"},{"modelo":"718 Boxster","ano":2021,"preco":73500.0,"estado":"IL","pagamento":"Debit Card","data":"2024-08-19"},{"modelo":"Macan GTS","ano":2024,"preco":95000.0,"estado":"AZ","pagamento":"Financing","data":"2024-09-02"},{"modelo":"Taycan Turbo","ano":2023,"preco":153200.5,"estado":"TX","pagamento":"ACH Payment","data":"2024-09-17"},{"modelo":"Panamera Turbo S","ano":2022,"preco":132000.0,"estado":"CA","pagamento":"Cash","data":"2024-05-11"},{"modelo":"Cayenne Turbo GT","ano":2024,"preco":188000.0,"estado":"TX","pagamento":"Crypto Payment","data":"2024-12-12"},{"modelo":"911 Carrera Cabriolet","ano":2023,"preco":127800.0,"estado":"GA","pagamento":"Credit Card","data":"2024-12-25"},{"modelo":"Macan","ano":2021,"preco":58900.0,"estado":"FL","pagamento":"Bank Transfer","data":"2025-01-06"},{"modelo":"Taycan Cross Turismo","ano":2023,"preco":118500.0,"estado":"NC","pagamento":"Wire Transfer","data":"2025-02-14"},{"modelo":"911 Targa 4S","ano":2024,"preco":158750.0,"estado":"MN","pagamento":"Lease","data":"2025-03-21"},{"modelo":"Panamera","ano":2020,"preco":72000.0,"estado":"PA","pagamento":"Bank Transfer","data":"2025-03-28"},{"modelo":"Macan Electric","ano":2025,"preco":86500.0,"estado":"TX","pagamento":"Wire Transfer","data":"2025-04-09"},{"modelo":"Taycan GTS","ano":2023,"preco":139000.0,"estado":"NC","pagamento":"Financing","data":"2025-05-12"},{"modelo":"Cayenne","ano":2021,"preco":76800.0,"estado":"MI","pagamento":"Credit Card","data":"2025-06-18"},{"modelo":"911 Carrera GTS","ano":2022,"preco":119900.0,"estado":"IN","pagamento":"Cash","data":"2025-07-07"},{"modelo":"Panamera 4 E-Hybrid","ano":2023,"preco":109250.0,"estado":"TX","pagamento":"Lease","data":"2025-07-22"},{"modelo":"Macan T","ano":2022,"preco":82000.0,"estado":"FL","pagamento":"Wire Transfer","data":"2025-08-14"},{"modelo":"Taycan Turbo S","ano":2025,"preco":214000.0,"estado":"CA","pagamento":"Crypto Payment","data":"2025-09-01"},{"modelo":"Cayenne S","ano":2023,"preco":98200.0,"estado":"CA","pagamento":"Bank Transfer","data":"2025-09-18"},{"modelo":"Macan","ano":2022,"preco":67500.0,"estado":"OH","pagamento":"Financing","data":"2025-10-04"},{"modelo":"Taycan","ano":2025,"preco":116900.0,"estado":"WI","pagamento":"Wire Transfer","data":"2025-10-12"},{"modelo":"Panamera 4S","ano":2024,"preco":112000.0,"estado":"MO","pagamento":"Cash","data":"2025-10-29"},{"modelo":"718 Boxster","ano":2021,"preco":74000.0,"estado":"NE","pagamento":"Debit Card","data":"2025-02-11"},{"modelo":"911 Turbo","ano":2024,"preco":198300.0,"estado":"NM","pagamento":"Wire Transfer","data":"2025-11-16"},{"modelo":"Taycan 4S","ano":2025,"preco":129000.0,"estado":"VA","pagamento":"ACH Payment","data":"2025-12-07"},{"modelo":"Panamera Turbo","ano":2022,"preco":136000.0,"estado":"CO","pagamento":"Credit Card","data":"2025-12-22"},{"modelo":"Cayenne E-Hybrid","ano":2023,"preco":92800.0,"estado":"CA","pagamento":"Lease","data":"2026-01-08"},{"modelo":"Macan T","ano":2022,"preco":72400.0,"estado":"AZ","pagamento":"Cash","data":"2026-01-15"},{"modelo":"Taycan Turbo","ano":2025,"preco":158500.0,"estado":"GA","pagamento":"Crypto Payment","data":"2026-01-28"},{"modelo":"718 Cayman","ano":2021,"preco":69900.0,"estado":"CA","pagamento":"Bank Transfer","data":"2026-02-03"},{"modelo":"Panamera","ano":2020,"preco":71500.0,"estado":"OK","pagamento":"Wire Transfer","data":"2026-02-19"},{"modelo":"Cayenne Turbo","ano":2023,"preco":146800.0,"estado":"KS","pagamento":"Credit Card","data":"2026-02-25"},{"modelo":"Macan Electric","ano":2025,"preco":89700.0,"estado":"LA","pagamento":"Lease","data":"2026-03-01"},{"modelo":"911 Carrera S","ano":2022,"preco":104600.0,"estado":"HI","pagamento":"Bank Transfer","data":"2026-03-14"},{"modelo":"Cayenne","ano":2021,"preco":78400.0,"estado":"NV","pagamento":"Cash","data":"2026-04-08"},{"modelo":"911 Dakar","ano":2024,"preco":268900.0,"estado":"CA","pagamento":"Credit Card","data":"2026-04-21"},{"modelo":"Panamera 4","ano":2023,"preco":101300.0,"estado":"TX","pagamento":"Wire Transfer","data":"2026-04-29"},{"modelo":"Macan S","ano":2021,"preco":66750.0,"estado":"MO","pagamento":"Cash","data":"2026-05-05"},{"modelo":"Taycan Cross Turismo","ano":2024,"preco":127900.0,"estado":"PA","pagamento":"Lease","data":"2026-05-14"},{"modelo":"Cayenne Turbo GT","ano":2025,"preco":200000.0,"estado":"OH","pagamento":"Wire Transfer","data":"2026-05-23"},{"modelo":"911 Carrera Cabriolet","ano":2023,"preco":132000.0,"estado":"AK","pagamento":"Crypto Payment","data":"2026-06-02"},{"modelo":"718 Cayman GT4 RS","ano":2024,"preco":176400.0,"estado":"TX","pagamento":"Credit Card","data":"2026-06-15"},{"modelo":"Macan","ano":2021,"preco":59000.0,"estado":"NC","pagamento":"Financing","data":"2026-07-07"},{"modelo":"Taycan Turbo S","ano":2025,"preco":218000.0,"estado":"NE","pagamento":"Wire Transfer","data":"2026-07-20"},{"modelo":"911 Carrera GTS","ano":2024,"preco":121750.0,"estado":"AZ","pagamento":"Credit Card","data":"2026-04-08"},{"modelo":"718 Boxster GTS","ano":2023,"preco":91500.0,"estado":"NV","pagamento":"Lease","data":"2026-08-18"},{"modelo":"Panamera Turbo S","ano":2022,"preco":134000.0,"estado":"NY","pagamento":"Wire Transfer","data":"2026-08-31"},{"modelo":"Macan GTS","ano":2024,"preco":96800.0,"estado":"NC","pagamento":"ACH Payment","data":"2026-09-09"},{"modelo":"Taycan 4S","ano":2025,"preco":131600.0,"estado":"TX","pagamento":"Wire Transfer","data":"2026-09-17"},{"modelo":"Cayenne E-Hybrid","ano":2023,"preco":94300.0,"estado":"WI","pagamento":"Cash","data":"2026-09-28"},{"modelo":"911 Turbo S","ano":2025,"preco":242000.0,"estado":"TX","pagamento":"Crypto Payment","data":"2026-10-06"},{"modelo":"718 Cayman S","ano":2022,"preco":82750.0,"estado":"OH","pagamento":"Credit Card","data":"2026-10-16"},{"modelo":"Macan Electric","ano":2026,"preco":91300.0,"estado":"CA","pagamento":"Wire Transfer","data":"2026-10-29"},{"modelo":"Panamera","ano":2021,"preco":79900.0,"estado":"TX","pagamento":"Financing","data":"2026-11-03"},{"modelo":"911 Targa 4S","ano":2023,"preco":156500.0,"estado":"VA","pagamento":"Cash","data":"2026-12-11"},{"modelo":"Taycan","ano":2025,"preco":119900.0,"estado":"AZ","pagamento":"Lease","data":"2026-12-24"},{"modelo":"911 GT3","ano":2024,"preco":224000.0,"estado":"ID","pagamento":"Wire Transfer","data":"2026-12-28"},{"modelo":"911 Carrera","ano":2024,"preco":126900.0,"estado":"FL","pagamento":"Credit Card","data":"2027-01-15"},{"modelo":"Cayenne","ano":2023,"preco":84500.0,"estado":"CA","pagamento":"Bank Transfer","data":"2027-01-29"},{"modelo":"Macan S","ano":2022,"preco":69800.0,"estado":"FL","pagamento":"Financing","data":"2027-02-11"},{"modelo":"Panamera","ano":2021,"preco":81000.0,"estado":"TX","pagamento":"Cash","data":"2027-03-05"},{"modelo":"718 Cayman","ano":2023,"preco":78900.0,"estado":"WA","pagamento":"Debit Card","data":"2027-03-18"},{"modelo":"911 Turbo S","ano":2026,"preco":249300.0,"estado":"MA","pagamento":"Wire Transfer","data":"2027-04-02"},{"modelo":"Taycan Turbo","ano":2025,"preco":164000.0,"estado":"TX","pagamento":"ACH Payment","data":"2027-05-12"},{"modelo":"Panamera 4S","ano":2024,"preco":119000.0,"estado":"CA","pagamento":"Credit Card","data":"2027-05-27"},{"modelo":"Cayenne E-Hybrid","ano":2023,"preco":96800.0,"estado":"NC","pagamento":"Lease","data":"2027-06-18"},{"modelo":"Macan T","ano":2022,"preco":74400.0,"estado":"AZ","pagamento":"Cash","data":"2027-07-03"},{"modelo":"Taycan GTS","ano":2025,"preco":148500.0,"estado":"GA","pagamento":"Crypto Payment","data":"2027-07-22"},{"modelo":"718 Boxster","ano":2021,"preco":71900.0,"estado":"CA","pagamento":"Bank Transfer","data":"2027-08-08"},{"modelo":"Panamera Turbo","ano":2020,"preco":137500.0,"estado":"OK","pagamento":"Wire Transfer","data":"2027-09-19"},{"modelo":"Cayenne Turbo GT","ano":2025,"preco":204800.0,"estado":"KS","pagamento":"Credit Card","data":"2027-09-25"},{"modelo":"911 Dakar","ano":2024,"preco":271700.0,"estado":"LA","pagamento":"Lease","data":"2027-10-01"}];
+const fmtMoeda = n => new Intl.NumberFormat('pt-BR',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+const fmtInteiro = n => new Intl.NumberFormat('pt-BR').format(n);
+const vermelho = '#e31b35';
+const paleta = ['#e31b35','#f05b6b','#aeb4bc','#727a84','#d8dbe0','#7e2632','#4c535c','#c18b91','#9299a2','#424850','#f08b97','#656d77'];
+const common = {responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#c6cbd1',padding:16,usePointStyle:true,boxWidth:8,font:{family:'Inter',size:10}}},tooltip:{backgroundColor:'#090a0c',titleColor:'#fff',bodyColor:'#d8dbe0',borderColor:'#3b4047',borderWidth:1,padding:12}}};
+Chart.defaults.font.family = 'Inter, sans-serif';
+Chart.defaults.color = '#a5abb3';
+Chart.defaults.borderColor = '#2b2f35';
+const options = [
+  ['modelo','modelo','Todos os modelos'],
+  ['estado','estado','Todos os estados'],
+  ['pagamento','pagamento','Todos os métodos']
+];
+options.forEach(([id,key,all])=>{
+  const sel=document.getElementById(id);
+  [...new Set(dados.map(d=>d[key]))].sort((a,b)=>a.localeCompare(b,'pt-BR')).forEach(v=>{
+    const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);
+  });
+});
+let cModelo,cEstado,cPagamento;
+function baseFiltrada(){
+  const m=document.getElementById('modelo').value, e=document.getElementById('estado').value, p=document.getElementById('pagamento').value;
+  return dados.filter(d=>(!m||d.modelo===m)&&(!e||d.estado===e)&&(!p||d.pagamento===p));
+}
+function atualizar(){
+  const d=baseFiltrada();
+  document.getElementById('receita').textContent=fmtMoeda(d.reduce((s,x)=>s+x.preco,0));
+  document.getElementById('vendas').textContent=fmtInteiro(d.length);
+  document.getElementById('contagem').textContent=`${fmtInteiro(d.length)} de ${fmtInteiro(dados.length)} vendas na seleção`;
+  const modelos=agrupar(d,'modelo','preco','sum').sort((a,b)=>a.valor-b.valor);
+  const estados=agrupar(d,'estado',null,'count').sort((a,b)=>b.valor-a.valor).slice(0,12).reverse();
+  const pagamentos=agrupar(d,'pagamento',null,'count').sort((a,b)=>b.valor-a.valor);
+  cModelo.data.labels=modelos.map(x=>x.chave);cModelo.data.datasets[0].data=modelos.map(x=>x.valor);cModelo.update();
+  cEstado.data.labels=estados.map(x=>x.chave);cEstado.data.datasets[0].data=estados.map(x=>x.valor);cEstado.update();
+  cPagamento.data.labels=pagamentos.map(x=>x.chave);cPagamento.data.datasets[0].data=pagamentos.map(x=>x.valor);cPagamento.update();
+}
+function agrupar(arr,key,val,mode){
+  const map=new Map();arr.forEach(x=>{const k=x[key];map.set(k,(map.get(k)||0)+(mode==='sum'?x[val]:1));});
+  return [...map].map(([chave,valor])=>({chave,valor}));
+}
+cModelo=new Chart(document.getElementById('grafModelo'),{type:'bar',data:{labels:[],datasets:[{label:'Receita',data:[],backgroundColor:vermelho,borderRadius:4,barThickness:15}]},options:{...common,indexAxis:'y',scales:{x:{beginAtZero:true,grid:{color:'#292d32'},ticks:{callback:v=>'$'+Number(v).toLocaleString('en-US',{notation:'compact'})}},y:{grid:{display:false},ticks:{color:'#d4d7dc',font:{size:10}}}},plugins:{...common.plugins,legend:{display:false},tooltip:{...common.plugins.tooltip,callbacks:{label:c=>fmtMoeda(c.raw)}}}}});
+cEstado=new Chart(document.getElementById('grafEstado'),{type:'bar',data:{labels:[],datasets:[{label:'Vendas',data:[],backgroundColor:'#8b929c',hoverBackgroundColor:vermelho,borderRadius:4,barThickness:17}]},options:{...common,scales:{x:{grid:{display:false},ticks:{color:'#c6cbd1',font:{size:10}}},y:{beginAtZero:true,grid:{color:'#292d32'},ticks:{precision:0}}},plugins:{...common.plugins,legend:{display:false}}}});
+cPagamento=new Chart(document.getElementById('grafPagamento'),{type:'doughnut',data:{labels:[],datasets:[{data:[],backgroundColor:paleta,borderColor:'#141619',borderWidth:3,hoverOffset:6}]},options:{...common,cutout:'68%',plugins:{...common.plugins,legend:{position:'bottom',labels:{...common.plugins.legend.labels,boxWidth:8}},tooltip:{...common.plugins.tooltip,callbacks:{label:c=>`${c.label}: ${c.raw} venda(s)`}}}}});
+['modelo','estado','pagamento'].forEach(id=>document.getElementById(id).addEventListener('change',atualizar));
+document.getElementById('limpar').addEventListener('click',()=>{['modelo','estado','pagamento'].forEach(id=>document.getElementById(id).value='');atualizar();});
+document.getElementById('validas').textContent=fmtInteiro(dados.length);
+atualizar();
+</script>
+</body>
+</html>
