@@ -3,7 +3,7 @@
 Este repositório contém o desafio concluído de criação de um dashboard interativo de vendas da Porsche, desenvolvido a partir de dados sanitizados e construído de forma 100% web utilizando Inteligência Artificial (ChatGPT com recurso Canvas).
 
 ## 🌐 Link do Dashboard no Ar
-🔗 [Acesse o Dashboard Interativo Aqui](https://github.io)
+🔗 [Acesse o Dashboard Interativo Aqui](https://cesarbh1.github.io/porsche-sales-dashboard/)
 
 ---
 
